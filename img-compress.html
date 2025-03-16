@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Optimize your images with our responsive image compression tool. Compress images to reduce file size without losing quality.">
+    <meta name="keywords" content="image compression, optimize images, reduce image size, image tool">
+    <meta name="author" content="Your Name">
+    <title>Responsive Image Compression Tool</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        header {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        main {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Compression Tool Section */
+        #compression-tool {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        #compression-tool input, #compression-tool select, #compression-tool button {
+            margin: 15px 0;
+            padding: 12px;
+            width: 100%;
+            max-width: 400px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        #compression-tool input:focus, #compression-tool select:focus {
+            border-color: #007BFF;
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+        }
+
+        #compression-tool button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        #compression-tool button:hover {
+            background-color: #0056b3;
+        }
+
+        #output {
+            margin-top: 20px;
+        }
+
+        #output img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-top: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        #download-btn {
+            display: none;
+            margin-top: 15px;
+            padding: 12px 24px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        #download-btn:hover {
+            background-color: #218838;
+        }
+
+        /* Advertisement Section */
+        #advertisement {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 15px 0;
+            margin-top: 30px;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            #compression-tool {
+                padding: 15px;
+            }
+
+            #compression-tool input, #compression-tool select, #compression-tool button {
+                font-size: 0.9rem;
+                padding: 10px;
+            }
+
+            #download-btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Image Compression Tool</h1>
+    </header>
+
+    <main>
+        <!-- Image Compression Tool Section -->
+        <section id="compression-tool">
+            <input type="file" id="image-input" accept="image/*">
+            <label for="compression-level">Compression Level:</label>
+            <select id="compression-level">
+                <option value="0.1">Low</option>
+                <option value="0.5">Medium</option>
+                <option value="0.9">High</option>
+            </select>
+            <button id="compress-btn">Compress Image</button>
+            <div id="output"></div>
+            <button id="download-btn">Download Compressed Image</button>
+        </section>
+
+        <!-- AdSense Ad Unit -->
+        <section id="advertisement">
+            <div id="adsense-ad">
+                <!-- Replace with your AdSense ad unit ID -->
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_AD_UNIT_ID"
+                        crossorigin="anonymous"></script>
+                <!-- Ad Unit -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-YOUR_AD_UNIT_ID"
+                     data-ad-slot="1234567890"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Your Company. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Add event listener to the compress button
+        document.getElementById('compress-btn').addEventListener('click', function() {
+            const fileInput = document.getElementById('image-input');
+            const compressionLevel = parseFloat(document.getElementById('compression-level').value);
+            const outputDiv = document.getElementById('output');
+            const downloadBtn = document.getElementById('download-btn');
+
+            // Check if a file is selected
+            if (fileInput.files.length === 0) {
+                alert('Please select an image to compress.');
+                return;
+            }
+
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+
+            // Read the image file
+            reader.onload = function(event) {
+                const img = new Image();
+                img.src = event.target.result;
+
+                // When the image is loaded, compress it
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+
+                    // Set canvas dimensions to the image dimensions
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+
+                    // Draw the image on the canvas
+                    ctx.drawImage(img, 0, 0);
+
+                    // Compress the image and display it
+                    canvas.toBlob(function(blob) {
+                        const compressedImg = document.createElement('img');
+                        compressedImg.src = URL.createObjectURL(blob);
+                        outputDiv.innerHTML = '';
+                        outputDiv.appendChild(compressedImg);
+
+                        // Show the download button
+                        downloadBtn.style.display = 'block';
+                        downloadBtn.onclick = function() {
+                            const link = document.createElement('a');
+                            link.href = compressedImg.src;
+                            link.download = 'compressed-image.jpg';
+                            link.click();
+                        };
+                    }, 'image/jpeg', compressionLevel);
+                };
+            };
+
+            // Read the file as a data URL
+            reader.readAsDataURL(file);
+        });
+    </script>
+</body>
+</html>
